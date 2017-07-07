@@ -36,6 +36,8 @@
 
 /* USER CODE BEGIN Includes */
 #include "sys.h"
+#include "stepmotor.h"
+extern u8 sm_busy_flag;
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -92,11 +94,13 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
-
+  stepmotor_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  stepmotor_step(6400);
+  while(sm_busy_flag==1);
   while (1)
   {
   /* USER CODE END WHILE */

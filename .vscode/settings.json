@@ -2,6 +2,22 @@
     "files.associations": {
         "stm32f1xx_hal.h": "c",
         "main.h": "c",
-        "stm32f1xx_hal_gpio.h": "c"
+        "stm32f1xx_hal_gpio.h": "c",
+        "stepmotor.h": "c",
+        "stm32f100xb.h": "c",
+        "stm32f100xe.h": "c",
+        "stm32f101xb.h": "c",
+        "stm32f101xe.h": "c",
+        "stm32f101xg.h": "c",
+        "stm32f102xb.h": "c",
+        "stm32f103xb.h": "c",
+        "stm32f103xe.h": "c",
+        "stm32f103xg.h": "c",
+        "stm32f105xc.h": "c",
+        "stm32f107xc.h": "c",
+        "stm32f101x6.h": "c",
+        "stm32f102x6.h": "c",
+        "stm32f103x6.h": "c",
+        "stm32f1xx_hal_tim.h": "c"
     }
 }

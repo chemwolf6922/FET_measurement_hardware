@@ -5,7 +5,7 @@
 
 void stepmotor_init(void);
 
-void stepmotor_step(void);
+void stepmotor_step(int steps);
 
 #define SM_DIR_P GPIO_PIN_SET
 #define SM_DIR_N GPIO_PIN_RESET
@@ -31,3 +31,5 @@ void stepmotor_enable(GPIO_PinState state);
 void stepmotor_reset(void);
 
 #endif
+
+

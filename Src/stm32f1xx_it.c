@@ -37,10 +37,15 @@
 
 /* USER CODE BEGIN 0 */
 #include "sys.h"
+
+u8 tim4update = 0;
+extern int steps_to_go;
+extern u8 sm_busy_flag;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_FS;
+extern TIM_HandleTypeDef htim4;
 
 /******************************************************************************/
 /*            Cortex-M3 Processor Interruption and Exception Handlers         */ 
@@ -210,6 +215,29 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
   /* USER CODE BEGIN USB_LP_CAN1_RX0_IRQn 1 */
 
   /* USER CODE END USB_LP_CAN1_RX0_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM4 global interrupt.
+*/
+void TIM4_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM4_IRQn 0 */
+  if(__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_CC3) != RESET){
+		tim4update = 1;
+	}
+  /* USER CODE END TIM4_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim4);
+  /* USER CODE BEGIN TIM4_IRQn 1 */
+  if(tim4update==1){
+    tim4update = 0;
+    steps_to_go --;
+  }
+  if(steps_to_go == 0){
+    HAL_TIM_PWM_Stop_IT(&htim4,TIM_CHANNEL_3);
+    sm_busy_flag = 0;
+  }
+  /* USER CODE END TIM4_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
