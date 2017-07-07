@@ -2,6 +2,7 @@
 #define SYS_H__
 
 #include "stm32f1xx_hal.h"
+#include "main.h"
 
 //data type
 #define u8 uint8_t
