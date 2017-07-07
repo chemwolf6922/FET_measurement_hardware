@@ -41,6 +41,30 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define SM_DIR_Pin GPIO_PIN_13
+#define SM_DIR_GPIO_Port GPIOC
+#define SM_SLEEP_Pin GPIO_PIN_14
+#define SM_SLEEP_GPIO_Port GPIOC
+#define SM_RESET_Pin GPIO_PIN_15
+#define SM_RESET_GPIO_Port GPIOC
+#define DRAIN4_Pin GPIO_PIN_3
+#define DRAIN4_GPIO_Port GPIOA
+#define DRAIN3_Pin GPIO_PIN_4
+#define DRAIN3_GPIO_Port GPIOA
+#define DRAIN2_Pin GPIO_PIN_5
+#define DRAIN2_GPIO_Port GPIOA
+#define DRAIN1_Pin GPIO_PIN_6
+#define DRAIN1_GPIO_Port GPIOA
+#define CRASH_Pin GPIO_PIN_0
+#define CRASH_GPIO_Port GPIOB
+#define SM_MODE2_Pin GPIO_PIN_5
+#define SM_MODE2_GPIO_Port GPIOB
+#define SM_MODE1_Pin GPIO_PIN_6
+#define SM_MODE1_GPIO_Port GPIOB
+#define SM_MODE0_Pin GPIO_PIN_7
+#define SM_MODE0_GPIO_Port GPIOB
+#define SM_ENABLE_Pin GPIO_PIN_9
+#define SM_ENABLE_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
