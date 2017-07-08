@@ -25,6 +25,7 @@
 "fet\sys.o"
 "fet\stepmotor.o"
 "fet\sterringengine.o"
+"fet\drainselect.o"
 "fet\usbd_core.o"
 "fet\usbd_cdc.o"
 "fet\usbd_ctlreq.o"

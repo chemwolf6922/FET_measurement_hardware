@@ -33,7 +33,16 @@ void stepmotor_reset(void);
 
 
 u8 stepmotor_get_busy_flag(void);
-void stepmotor_set_busy_flag(u8 flag);
+void stepmotor_set_busy_flag(u8 flag)；
+
+int stepmotor_get_current_step(void);
+void stepmotor_set_current_step(int step);
+
+u8 stepmotor_get_zero_flag(void);
+void stepmotor_set_zero_flag(u8 flag);
+
+void stepmotor_set_zero(void);
+
 
 #endif
 

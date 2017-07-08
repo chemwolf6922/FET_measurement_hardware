@@ -199,7 +199,13 @@ void EXTI0_IRQHandler(void)
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
-
+  if(stepmotor_get_zero_flag()==1){
+    stepmotor_set_zero_flag(0);
+    steps_to_go = 0;
+    stepmotor_set_current_step(0);
+  }else{
+    steps_to_go = 0;
+  }
   /* USER CODE END EXTI0_IRQn 1 */
 }
 
@@ -232,7 +238,7 @@ void TIM4_IRQHandler(void)
   if(tim4update==1){
     tim4update = 0;
     steps_to_go --;
-    if(steps_to_go == 0){
+    if(steps_to_go <= 0){
       stepmotor_set_busy_flag(0);
       HAL_TIM_PWM_Stop_IT(&htim4,TIM_CHANNEL_3);
     }
