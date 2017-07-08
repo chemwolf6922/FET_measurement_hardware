@@ -37,10 +37,10 @@
 
 /* USER CODE BEGIN 0 */
 #include "sys.h"
-
+#include "stepmotor.h"
 u8 tim4update = 0;
 extern int steps_to_go;
-extern u8 sm_busy_flag;
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -232,10 +232,10 @@ void TIM4_IRQHandler(void)
   if(tim4update==1){
     tim4update = 0;
     steps_to_go --;
-  }
-  if(steps_to_go == 0){
-    HAL_TIM_PWM_Stop_IT(&htim4,TIM_CHANNEL_3);
-    sm_busy_flag = 0;
+    if(steps_to_go == 0){
+      stepmotor_set_busy_flag(0);
+      HAL_TIM_PWM_Stop_IT(&htim4,TIM_CHANNEL_3);
+    }
   }
   /* USER CODE END TIM4_IRQn 1 */
 }

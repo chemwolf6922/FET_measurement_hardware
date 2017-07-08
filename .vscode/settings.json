@@ -18,6 +18,11 @@
         "stm32f101x6.h": "c",
         "stm32f102x6.h": "c",
         "stm32f103x6.h": "c",
-        "stm32f1xx_hal_tim.h": "c"
+        "stm32f1xx_hal_tim.h": "c",
+        "core_cm3.h": "c",
+        "core_cm4.h": "c",
+        "core_cm7.h": "c",
+        "core_sc300.h": "c",
+        "sys.h": "c"
     }
 }

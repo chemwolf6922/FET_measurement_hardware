@@ -11,6 +11,7 @@ void stepmotor_step(int steps);
 #define SM_DIR_N GPIO_PIN_RESET
 void stepmotor_dir(GPIO_PinState dir);
 
+void stepmotor_set_speed(u32 speed);
 
 #define SM_FULLSTEP 0x00
 #define SM_2_MICROSTEP 0x01
@@ -29,6 +30,10 @@ void stepmotor_sleep(GPIO_PinState sleep);
 void stepmotor_enable(GPIO_PinState state);
 
 void stepmotor_reset(void);
+
+
+u8 stepmotor_get_busy_flag(void);
+void stepmotor_set_busy_flag(u8 flag);
 
 #endif
 

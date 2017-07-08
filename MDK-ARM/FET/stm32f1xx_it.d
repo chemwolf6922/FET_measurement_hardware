@@ -32,3 +32,4 @@ fet\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h
 fet\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h
 fet\stm32f1xx_it.o: ../Inc/stm32f1xx_it.h
 fet\stm32f1xx_it.o: ../Inc/sys.h
+fet\stm32f1xx_it.o: ../Inc/stepmotor.h

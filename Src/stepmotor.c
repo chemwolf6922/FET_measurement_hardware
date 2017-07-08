@@ -5,7 +5,15 @@ extern TIM_HandleTypeDef htim4;
 int steps_to_go = 0;
 int current_step = 0;
 int target_step = 0;
+int motor_speed = 10;
 u8 sm_busy_flag = 0;
+
+u8 stepmotor_get_busy_flag(void){
+	return sm_busy_flag;
+}
+void stepmotor_set_busy_flag(u8 flag){
+	sm_busy_flag = flag;
+}
 
 void stepmotor_sleep(GPIO_PinState sleep){
 	HAL_GPIO_WritePin (SM_SLEEP_GPIO_Port, SM_SLEEP_Pin, sleep);
@@ -67,6 +75,7 @@ void stepmotor_init(void){
 	stepmotor_sleep(SM_ACTIVE);
 	stepmotor_enable(SM_DISABLE);
 	stepmotor_dir(SM_DIR_P);
+	stepmotor_set_speed(10);
     HAL_TIM_Base_Start(&htim4);
 }
 
@@ -78,8 +87,16 @@ void stepmotor_step(int steps){
         stepmotor_dir(SM_DIR_N);
         steps_to_go = -steps;
     }
-    sm_busy_flag = 1;
+    stepmotor_set_busy_flag(1);
     HAL_TIM_PWM_Start_IT(&htim4,TIM_CHANNEL_3);
 }
 
 
+void stepmotor_set_speed(u32 speed){
+    if(speed>300) speed = 300;
+    else if(speed<1) speed = 1;
+    motor_speed = speed;
+    u32 reload_value = 0;
+    reload_value = (u32)(1000000.0/((float)speed * 6400.0 / 60.0));
+    __HAL_TIM_SET_AUTORELOAD(&htim4, reload_value);
+}
