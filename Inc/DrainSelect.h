@@ -9,4 +9,8 @@
 #define Drain4 DRAIN4_Pin
 void drain_select(u16 drain);
 
+void drain_disconnect_all(void);
+
 #endif
+
+

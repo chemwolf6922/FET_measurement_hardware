@@ -41,3 +41,7 @@ fet\usbd_cdc_if.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.
 fet\usbd_cdc_if.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 fet\usbd_cdc_if.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 fet\usbd_cdc_if.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+fet\usbd_cdc_if.o: ../Inc/sys.h
+fet\usbd_cdc_if.o: ../Inc/sterringengine.h
+fet\usbd_cdc_if.o: ../Inc/stepmotor.h
+fet\usbd_cdc_if.o: ../Inc/DrainSelect.h

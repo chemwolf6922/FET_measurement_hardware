@@ -205,7 +205,7 @@ void EXTI0_IRQHandler(void)
     stepmotor_set_current_step(0);
   }else{
     steps_to_go = 0;
-  }
+  }                                     
   /* USER CODE END EXTI0_IRQn 1 */
 }
 

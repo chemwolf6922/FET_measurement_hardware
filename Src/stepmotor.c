@@ -75,8 +75,9 @@ void stepmotor_init(void){
 	stepmotor_sleep(SM_ACTIVE);
 	stepmotor_enable(SM_DISABLE);
 	stepmotor_dir(SM_DIR_P);
-	stepmotor_set_speed(10);
+	stepmotor_set_speed(100);
     HAL_TIM_Base_Start(&htim4);
+	stepmotor_set_zero();
 }
 
 void stepmotor_step(int steps){
@@ -118,11 +119,17 @@ void stepmotor_set_current_step(int step){
 u8 stepmotor_get_zero_flag(void){
 	return zero_flag;
 }
+
 void stepmotor_set_zero_flag(u8 flag){
 	zero_flag = flag;
 }
 
 void stepmotor_set_zero(void){
 	zero_flag = 1;
-	stepmotor_step(-640000);
+	stepmotor_step(-80000);
 }
+
+void stepmotor_goto(int position){
+	stepmotor_step(position-current_step);
+}
+

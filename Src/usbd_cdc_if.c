@@ -33,6 +33,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
 /* USER CODE BEGIN INCLUDE */
+#include "sys.h"
+#include "sterringengine.h"
+#include "stepmotor.h"
+#include "DrainSelect.h"
 /* USER CODE END INCLUDE */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -252,6 +256,50 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+  switch(Buf[0]){
+    case 0x01:            //Position control
+      switch(Buf[1]){
+        case 0x01:stepmotor_goto(SM_POS1);
+        break;
+        case 0x02:stepmotor_goto(SM_POS2);
+        break;
+        case 0x03:stepmotor_goto(SM_POS3);
+        break;
+        case 0x04:stepmotor_goto(SM_POS4);
+        break;
+        case 0x05:stepmotor_goto(SM_POS5);
+        break;
+        default:break;
+      }
+      break;
+    case 0x02:            //Lens control
+      if(Buf[1]&0x01) sterringengine_rotate(SE_CH1,SE_CH1_ENABLE); 
+      else sterringengine_rotate(SE_CH1,SE_CH1_DISABLE);
+      if(Buf[1]&0x02) sterringengine_rotate(SE_CH2,SE_CH2_ENABLE);
+      else sterringengine_rotate(SE_CH2,SE_CH2_DISABLE);
+      if(Buf[1]&0x04) sterringengine_rotate(SE_CH2,SE_CH2_ENABLE);
+      else sterringengine_rotate(SE_CH3,SE_CH3_DISABLE);
+      break;
+    case 0x03:            //Make zero
+      stepmotor_set_zero();
+      break;
+    case 0x04:
+      switch(Buf[1]){
+        case 0x01:drain_select(Drain1);
+        break;
+        case 0x02:drain_select(Drain2);
+        break;
+        case 0x03:drain_select(Drain3);
+        break;
+        case 0x04:drain_select(Drain4);
+        break;
+        case 0x05:drain_disconnect_all();
+        break;
+        default:break;
+      }
+      break;
+    default:break;
+  }
   return (USBD_OK);
   /* USER CODE END 6 */ 
 }

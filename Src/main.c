@@ -37,6 +37,7 @@
 /* USER CODE BEGIN Includes */
 #include "sys.h"
 #include "stepmotor.h"
+#include "sterringengine.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -94,18 +95,24 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   stepmotor_init();
+  sterringengine_init();
+  drain_disconnect_all();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  stepmotor_set_speed(100);
+  u8 rxbuffer[5] = {0};
+  int temp_steps = 0;
   while (1)
   {
-    
-    stepmotor_step(10);
-    while(stepmotor_get_busy_flag()==1);
-    printf("0");
-    HAL_Delay(100);
+    HAL_UART_Receive(&huart1,rxbuffer,5,1000);
+    sterringengine_rotate(SE_CH1,(u32)rxbuffer[0]);
+    temp_steps = (int)((rxbuffer[1]<<24)|(rxbuffer[2]<<16)|(rxbuffer[3]<<8)|rxbuffer[4]);
+    stepmotor_step(temp_steps);
+    printf("%d %d %d\r\n",temp_steps,stepmotor_get_current_step(),stepmotor_get_busy_flag());
+    for(u8 i=1;i!=5;i++){
+      rxbuffer[i] = 0;
+    }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -169,7 +176,7 @@ static void MX_TIM2_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7199;
+  htim2.Init.Prescaler = 719;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 1999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;

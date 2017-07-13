@@ -33,7 +33,7 @@ void stepmotor_reset(void);
 
 
 u8 stepmotor_get_busy_flag(void);
-void stepmotor_set_busy_flag(u8 flag)；
+void stepmotor_set_busy_flag(u8 flag);
 
 int stepmotor_get_current_step(void);
 void stepmotor_set_current_step(int step);
@@ -43,6 +43,12 @@ void stepmotor_set_zero_flag(u8 flag);
 
 void stepmotor_set_zero(void);
 
+#define SM_POS1 6400
+#define SM_POS2 7400
+#define SM_POS3 8400
+#define SM_POS4 9400
+#define SM_POS5 10400
+void stepmotor_goto(int position);
 
 #endif
 
