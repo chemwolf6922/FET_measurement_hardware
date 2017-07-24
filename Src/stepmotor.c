@@ -77,12 +77,13 @@ void stepmotor_init(void){
 	stepmotor_dir(SM_DIR_P);
 	stepmotor_set_speed(100);
     HAL_TIM_Base_Start(&htim4);
-	stepmotor_set_zero();
+//	stepmotor_set_zero();
 }
 
 void stepmotor_step(int steps){
 	if(stepmotor_get_busy_flag()==0){
 		stepmotor_set_busy_flag(1);
+		stepmotor_enable(SM_ENABLE);
 		current_step += steps;
     	if(steps>0){
         	stepmotor_dir(SM_DIR_P);
@@ -91,6 +92,7 @@ void stepmotor_step(int steps){
         	stepmotor_dir(SM_DIR_N);
         	steps_to_go = -steps;
     	}else{
+			stepmotor_enable(SM_DISABLE);
 			stepmotor_set_busy_flag(0);
 			return;
 		}
@@ -131,5 +133,25 @@ void stepmotor_set_zero(void){
 
 void stepmotor_goto(int position){
 	stepmotor_step(position-current_step);
+}
+
+//step without changing the step counter
+void stepmotor_offset(int steps){
+	if(stepmotor_get_busy_flag()==0){
+		stepmotor_set_busy_flag(1);
+		stepmotor_enable(SM_ENABLE);
+    	if(steps>0){
+        	stepmotor_dir(SM_DIR_P);
+        	steps_to_go = steps;
+    	}else if(steps<0){
+        	stepmotor_dir(SM_DIR_N);
+        	steps_to_go = -steps;
+    	}else{
+			stepmotor_enable(SM_DISABLE);
+			stepmotor_set_busy_flag(0);
+			return;
+		}
+    	HAL_TIM_PWM_Start_IT(&htim4,TIM_CHANNEL_3);
+	}
 }
 

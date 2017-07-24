@@ -277,11 +277,12 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
       else sterringengine_rotate(SE_CH1,SE_CH1_DISABLE);
       if(Buf[1]&0x02) sterringengine_rotate(SE_CH2,SE_CH2_ENABLE);
       else sterringengine_rotate(SE_CH2,SE_CH2_DISABLE);
-      if(Buf[1]&0x04) sterringengine_rotate(SE_CH2,SE_CH2_ENABLE);
+      if(Buf[1]&0x04) sterringengine_rotate(SE_CH3,SE_CH3_ENABLE);
       else sterringengine_rotate(SE_CH3,SE_CH3_DISABLE);
       break;
     case 0x03:            //Make zero
-      stepmotor_set_zero();
+      stepmotor_set_zero();    
+      drain_disconnect_all();
       break;
     case 0x04:
       switch(Buf[1]){
@@ -298,6 +299,14 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
         default:break;
       }
       break;
+    case 0x05:
+      switch(Buf[1]){
+        case 0x01:stepmotor_offset(80);
+        break;
+        case 0x02:stepmotor_offset(-80);
+        break;
+        default:break;
+      }
     default:break;
   }
   return (USBD_OK);

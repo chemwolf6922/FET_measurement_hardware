@@ -57,6 +57,8 @@
 #define DRAIN1_GPIO_Port GPIOA
 #define CRASH_Pin GPIO_PIN_0
 #define CRASH_GPIO_Port GPIOB
+#define POWER_Pin GPIO_PIN_4
+#define POWER_GPIO_Port GPIOB
 #define SM_MODE2_Pin GPIO_PIN_5
 #define SM_MODE2_GPIO_Port GPIOB
 #define SM_MODE1_Pin GPIO_PIN_6

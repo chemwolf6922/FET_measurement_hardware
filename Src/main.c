@@ -38,6 +38,7 @@
 #include "sys.h"
 #include "stepmotor.h"
 #include "sterringengine.h"
+#include "DrainSelect.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -105,14 +106,15 @@ int main(void)
   int temp_steps = 0;
   while (1)
   {
-    HAL_UART_Receive(&huart1,rxbuffer,5,1000);
+      
+  /*  HAL_UART_Receive(&huart1,rxbuffer,5,1000);
     sterringengine_rotate(SE_CH1,(u32)rxbuffer[0]);
     temp_steps = (int)((rxbuffer[1]<<24)|(rxbuffer[2]<<16)|(rxbuffer[3]<<8)|rxbuffer[4]);
     stepmotor_step(temp_steps);
     printf("%d %d %d\r\n",temp_steps,stepmotor_get_current_step(),stepmotor_get_busy_flag());
     for(u8 i=1;i!=5;i++){
       rxbuffer[i] = 0;
-    }
+    }                         */       
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -136,7 +138,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -296,7 +298,8 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, DRAIN4_Pin|DRAIN3_Pin|DRAIN2_Pin|DRAIN1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SM_MODE2_Pin|SM_MODE1_Pin|SM_MODE0_Pin|SM_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, POWER_Pin|SM_MODE2_Pin|SM_MODE1_Pin|SM_MODE0_Pin 
+                          |SM_ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : SM_DIR_Pin SM_SLEEP_Pin SM_RESET_Pin */
   GPIO_InitStruct.Pin = SM_DIR_Pin|SM_SLEEP_Pin|SM_RESET_Pin;
@@ -316,8 +319,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(CRASH_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SM_MODE2_Pin SM_MODE1_Pin SM_MODE0_Pin SM_ENABLE_Pin */
-  GPIO_InitStruct.Pin = SM_MODE2_Pin|SM_MODE1_Pin|SM_MODE0_Pin|SM_ENABLE_Pin;
+  /*Configure GPIO pins : POWER_Pin SM_MODE2_Pin SM_MODE1_Pin SM_MODE0_Pin 
+                           SM_ENABLE_Pin */
+  GPIO_InitStruct.Pin = POWER_Pin|SM_MODE2_Pin|SM_MODE1_Pin|SM_MODE0_Pin 
+                          |SM_ENABLE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

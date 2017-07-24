@@ -39,3 +39,4 @@ fet\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 fet\main.o: ../Inc/sys.h
 fet\main.o: ../Inc/stepmotor.h
 fet\main.o: ../Inc/sterringengine.h
+fet\main.o: ../Inc/DrainSelect.h

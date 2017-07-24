@@ -203,9 +203,7 @@ void EXTI0_IRQHandler(void)
     stepmotor_set_zero_flag(0);
     steps_to_go = 0;
     stepmotor_set_current_step(0);
-  }else{
-    steps_to_go = 0;
-  }                                     
+  }                                
   /* USER CODE END EXTI0_IRQn 1 */
 }
 
@@ -239,6 +237,7 @@ void TIM4_IRQHandler(void)
     tim4update = 0;
     steps_to_go --;
     if(steps_to_go <= 0){
+      stepmotor_enable(SM_DISABLE);
       stepmotor_set_busy_flag(0);
       HAL_TIM_PWM_Stop_IT(&htim4,TIM_CHANNEL_3);
     }

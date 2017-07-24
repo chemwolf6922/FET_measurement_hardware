@@ -12,7 +12,7 @@ void sterringengine_rotate(u32 channel,u32 position);
 
 //todo:find the right value for each position
 #define SE_CH1_ENABLE 0x2F
-#define SE_CH1_DISABLE 0x70
+#define SE_CH1_DISABLE 0x60
 #define SE_CH2_ENABLE 0x47
 #define SE_CH2_DISABLE 0x90
 #define SE_CH3_ENABLE 0x3A

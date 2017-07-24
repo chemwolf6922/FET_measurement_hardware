@@ -7,6 +7,8 @@ void stepmotor_init(void);
 
 void stepmotor_step(int steps);
 
+void stepmotor_offset(int steps);
+
 #define SM_DIR_P GPIO_PIN_SET
 #define SM_DIR_N GPIO_PIN_RESET
 void stepmotor_dir(GPIO_PinState dir);
@@ -43,11 +45,11 @@ void stepmotor_set_zero_flag(u8 flag);
 
 void stepmotor_set_zero(void);
 
-#define SM_POS1 6400
-#define SM_POS2 7400
-#define SM_POS3 8400
-#define SM_POS4 9400
-#define SM_POS5 10400
+#define SM_POS1 7058
+#define SM_POS2 8658
+#define SM_POS3 10258
+#define SM_POS4 11858
+#define SM_POS5 49568
 void stepmotor_goto(int position);
 
 #endif
